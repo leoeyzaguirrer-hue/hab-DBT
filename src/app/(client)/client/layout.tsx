@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { BookOpen, Calendar, ShieldAlert, MessageCircle, Home } from 'lucide-react'
 import ClientLogoutButton from './ClientLogoutButton'
+import CrisisButton from '@/components/crisis/CrisisButton'
 
 export default async function ClientLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -11,6 +12,9 @@ export default async function ClientLayout({ children }: { children: React.React
 
   return (
     <div className="flex min-h-screen flex-col bg-muted pb-16">
+      {/* Botón SOS flotante */}
+      <CrisisButton />
+
       {/* Contenido principal */}
       <main className="flex-1 px-4 py-4 mx-auto w-full max-w-lg">
         {children}

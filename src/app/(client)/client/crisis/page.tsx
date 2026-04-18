@@ -1,13 +1,18 @@
-import { ShieldAlert } from 'lucide-react'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+import CrisisPageClient from './CrisisPageClient'
 
-export default function CrisisPage() {
-  return (
-    <div className="flex flex-col items-center justify-center gap-4 pt-16 text-center">
-      <ShieldAlert size={48} className="text-destructive" />
-      <h1 className="text-xl font-bold">Plan de crisis</h1>
-      <p className="text-sm text-muted-foreground max-w-xs">
-        Tu plan de seguridad personalizado estará disponible aquí pronto.
-      </p>
-    </div>
-  )
+interface Props {
+  searchParams: Promise<{ activar?: string }>
+}
+
+export default async function CrisisPage({ searchParams }: Props) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const { activar } = await searchParams
+  const isActivated = activar === '1'
+
+  return <CrisisPageClient userId={user.id} isActivated={isActivated} />
 }
