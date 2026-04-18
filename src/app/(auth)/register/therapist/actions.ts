@@ -30,7 +30,10 @@ export async function registerTherapist(input: TherapistRegisterInput): Promise<
   })
 
   if (error) {
-    // Traducir errores comunes de Supabase Auth al español
+    // En desarrollo mostramos el error real para debuggear
+    if (process.env.NODE_ENV === 'development') {
+      return { error: `[DEV] ${error.message}` }
+    }
     if (error.message.includes('already registered')) {
       return { error: 'Ya existe una cuenta con ese email.' }
     }

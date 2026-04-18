@@ -11,9 +11,12 @@
 -- El rol y nombre vienen en los metadatos del signup.
 -- ============================================================
 CREATE OR REPLACE FUNCTION handle_new_user()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER SET search_path = public
+AS $$
 BEGIN
-  INSERT INTO profiles (id, role, full_name, email)
+  INSERT INTO public.profiles (id, role, full_name, email)
   VALUES (
     NEW.id,
     COALESCE(NEW.raw_user_meta_data->>'role', 'client'),
@@ -22,7 +25,7 @@ BEGIN
   );
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
 
 -- Ejecutar cada vez que se crea un usuario en Auth
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
