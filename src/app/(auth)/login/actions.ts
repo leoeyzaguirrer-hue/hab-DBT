@@ -27,5 +27,5 @@ export async function login(input: { email: string; password: string }) {
   }
 
   const role = data.user?.user_metadata?.role
-  redirect(role === 'therapist' ? '/therapist/dashboard' : '/consultant/dashboard')
+  redirect(role === 'therapist' ? '/therapist/dashboard' : '/client/dashboard')
 }

@@ -6,7 +6,7 @@ const PUBLIC_ROUTES = ['/login', '/register', '/forgot-password']
 
 // Rutas según rol
 const THERAPIST_ROUTES = ['/therapist']
-const CLIENT_ROUTES    = ['/consultant']
+const CLIENT_ROUTES    = ['/client']
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest) {
   if (isPublicRoute) {
     const role = user.user_metadata?.role as string | undefined
     const url  = request.nextUrl.clone()
-    url.pathname = role === 'therapist' ? '/therapist/dashboard' : '/consultant/dashboard'
+    url.pathname = role === 'therapist' ? '/therapist/dashboard' : '/client/dashboard'
     return NextResponse.redirect(url)
   }
 
@@ -42,7 +42,7 @@ export async function middleware(request: NextRequest) {
   if (isTherapistRoute && role !== 'therapist') {
     // Un consultante intentando acceder a rutas del terapeuta
     const url = request.nextUrl.clone()
-    url.pathname = '/consultant/dashboard'
+    url.pathname = '/client/dashboard'
     return NextResponse.redirect(url)
   }
 
