@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { BookOpen, Calendar, ShieldAlert, MessageCircle, Home } from 'lucide-react'
+import ClientLogoutButton from './ClientLogoutButton'
 
 export default async function ClientLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -28,6 +29,7 @@ export default async function ClientLayout({ children }: { children: React.React
           />
           <NavItem href="/client/skills" icon={<BookOpen size={20} />} label="Habilidades" />
           <NavItem href="/client/messages" icon={<MessageCircle size={20} />} label="Mensajes" />
+          <ClientLogoutButton />
         </div>
       </nav>
     </div>

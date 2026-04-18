@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import LogoutButton from './dashboard/LogoutButton'
 
 export default async function TherapistLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -15,13 +16,14 @@ export default async function TherapistLayout({ children }: { children: React.Re
           <Link href="/therapist/dashboard" className="font-semibold">
             hab-DBT
           </Link>
-          <nav className="flex items-center gap-6 text-sm">
+          <nav className="flex items-center gap-4 text-sm">
             <Link
               href="/therapist/dashboard/invitations"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               Invitaciones
             </Link>
+            <LogoutButton />
           </nav>
         </div>
       </header>
