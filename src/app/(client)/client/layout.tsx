@@ -10,14 +10,14 @@ export default async function ClientLayout({ children }: { children: React.React
   if (!user) redirect('/login')
 
   return (
-    <div className="flex min-h-screen flex-col bg-background pb-16">
+    <div className="flex min-h-screen flex-col bg-muted pb-16">
       {/* Contenido principal */}
-      <main className="flex-1 px-4 py-6 mx-auto w-full max-w-lg">
+      <main className="flex-1 px-4 py-4 mx-auto w-full max-w-lg">
         {children}
       </main>
 
       {/* Barra de navegación inferior (mobile-first) */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-card shadow-sm">
         <div className="mx-auto flex max-w-lg items-center justify-around px-2 py-2">
           <NavItem href="/client/dashboard" icon={<Home size={20} />} label="Inicio" />
           <NavItem href="/client/diary/today" icon={<Calendar size={20} />} label="Diaria" />
